@@ -1,0 +1,321 @@
+/* Button Component */
+.buttonCancel {
+	padding: 1rem;
+	border: 1px solid rgba(239, 68, 68, 0.3);
+	background-color: rgba(239, 68, 68, 0.9);
+	border-radius: 9999px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s;
+	outline: none;
+}
+
+.buttonCancel:hover {
+	background-color: rgba(239, 68, 68, 1);
+}
+
+/* ButtonJoin Component */
+.buttonJoin {
+	padding: 0;
+	border: none;
+	background: none;
+	border-radius: 9999px;
+	color: white;
+	height: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.buttonJoinInner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	background: #2563eb;
+	border-radius: 9999px;
+	padding: 1rem 1.5rem;
+	box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+	height: 3rem;
+	transition: all 0.2s;
+	font-weight: 600;
+	min-width: 8.5rem;
+	color: white;
+}
+
+.buttonArrow {
+	transition: transform 0.2s;
+}
+
+.buttonJoin:hover .buttonArrow {
+	transform: translateX(2px);
+}
+
+.buttonJoin:hover .buttonJoinInner {
+	background: #1d4ed8;
+	box-shadow: 0 4px 10px -1px rgba(37, 99, 235, 0.4);
+	transform: scale(1.02);
+}
+
+.buttonJoin:disabled .buttonJoinInner {
+	background: #93c5fd;
+	opacity: 0.7;
+	cursor: not-allowed;
+}
+
+.buttonJoinDesktop {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	.buttonJoinDesktop {
+		display: flex;
+	}
+}
+
+/* Mobile Join Button - Positioned on video */
+.buttonJoinMobile {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 30;
+}
+
+@media (min-width: 768px) {
+	.buttonJoinMobile {
+		display: none;
+	}
+}
+
+/* Mobile Cancel Button - Bottom positioned */
+.buttonCancelMobile {
+	position: fixed;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 30;
+	min-width: 150px;
+}
+
+@media (min-width: 768px) {
+	.buttonCancelMobile {
+		display: none;
+	}
+}
+
+/* HaircheckScreen Component */
+.haircheckBlock {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%);
+}
+
+.dailyVideo {
+	width: 100%;
+	height: 100%;
+	object-fit: cover !important;
+	position: absolute;
+	inset: 0;
+	transition: opacity 0.3s ease-in-out;
+	z-index: 5;
+	background: #000;
+}
+
+.dailyVideoHidden {
+	opacity: 0;
+	pointer-events: none;
+}
+
+.haircheckUserPlaceholder {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
+	z-index: 4;
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.haircheckUserIcon {
+	width: 12.5rem;
+	height: 12.5rem;
+	border-radius: 9999px;
+	background-color: rgba(37, 99, 235, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.haircheckUserIcon svg path {
+	fill: url(#paint0_linear_premium);
+}
+
+/* Sidebar container */
+.haircheckSidebar {
+	position: absolute;
+	inset: 0;
+	z-index: 10;
+	pointer-events: none;
+}
+
+.haircheckSidebar > * {
+	pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+	.haircheckSidebar {
+		left: auto;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 17.5rem;
+		background-color: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(20px);
+		border-left: 1px solid rgba(0, 0, 0, 0.1);
+		pointer-events: auto;
+	}
+}
+
+@media (min-width: 1024px) {
+	.haircheckSidebar {
+		width: 23rem;
+	}
+}
+
+.haircheckSidebarContent {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.5rem 1.25rem;
+	gap: 1.5rem;
+	width: 100%;
+	height: 100%;
+}
+
+@media (min-width: 768px) {
+	.haircheckSidebarContent {
+		padding: 1rem 1.25rem;
+	}
+}
+
+@media (min-width: 1024px) {
+	.haircheckSidebarContent {
+		padding: 2rem 1.25rem;
+	}
+}
+
+/* Content - Mobile overlay at bottom */
+.haircheckContent {
+	position: absolute;
+	bottom: 3rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 20;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+	.haircheckContent {
+		position: relative;
+		bottom: auto;
+		left: auto;
+		transform: none;
+		gap: 2rem;
+	}
+}
+
+/* Description text */
+.haircheckDescription {
+	color: #ffffff;
+	font-size: 0.875rem;
+	font-weight: 500;
+	background-color: rgba(16, 42, 67, 0.85);
+	padding: 0.5rem 1rem;
+	border-radius: 9999px;
+	backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+	.haircheckDescription {
+		font-size: 1.25rem;
+		color: #102a43;
+		background: none;
+		padding: 0;
+		backdrop-filter: none;
+	}
+}
+
+/* Controls - Mobile overlay */
+.haircheckControls {
+	position: absolute;
+	bottom: 8rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 20;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+}
+
+@media (min-width: 768px) {
+	.haircheckControls {
+		position: relative;
+		bottom: auto;
+		left: auto;
+		transform: none;
+		justify-content: space-between;
+	}
+}
+
+/* Timer Container */
+.timerContainer {
+	position: absolute;
+	top: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 30;
+	padding: 0.5rem 1.5rem;
+	background-color: rgba(16, 42, 67, 0.8);
+	border-radius: 9999px;
+	backdrop-filter: blur(10px);
+}
+
+.timerText {
+	color: #ffffff;
+	font-size: 0.75rem;
+	font-weight: 400;
+	opacity: 1;
+}
+
+@media (min-width: 768px) {
+	.timerContainer {
+		top: 2rem;
+		background-color: rgba(16, 42, 67, 0.75);
+	}
+
+	.timerText {
+		font-size: 0.875rem;
+	}
+}
