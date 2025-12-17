@@ -8,7 +8,7 @@ function Landing() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+      <section className="relative pt-20 pb-16 lg:pb-32 overflow-hidden">
         {/* Subtle gradient background */}
         <div className="absolute inset-0 bg-gradient-hero"></div>
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-champagne-50/50 to-transparent"></div>
@@ -28,8 +28,52 @@ function Landing() {
               </h1>
 
               <p className="text-xl text-navy-600 leading-relaxed mb-8 max-w-lg">
-                ForeverPresent creates meaningful AI experiences that <strong className="text-navy-800">let you see, hear, and speak with your loved ones</strong>, preserving their essence for generations to come.
+                We create meaningful AI experiences that <strong className="text-navy-800">let you see, hear, and speak with your loved ones</strong>, preserving their essence for generations to come.
               </p>
+
+              {/* Mobile-only GIF preview - shown between text and CTAs on mobile */}
+              <div className="lg:hidden mb-8">
+                <div className="relative max-w-sm mx-auto">
+                  <div className="absolute -inset-2 bg-gradient-to-br from-primary-100 via-champagne-100 to-primary-50 rounded-2xl blur-xl opacity-60"></div>
+                  <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                    <img
+                      src="/foreverpresent_preview.gif"
+                      alt="ForeverPresent AI Video Call Demo"
+                      className="w-full h-auto"
+                    />
+                  </div>
+
+                  {/* Floating badge - AI Video Call */}
+                  <div className="absolute -right-2 top-1/4 bg-white rounded-xl shadow-lg px-3 py-2 animate-float" style={{ animationDelay: '1s' }}>
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-navy-900">AI Video Call</p>
+                        <p className="text-[10px] text-navy-500">Available 24/7</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Floating badge - Daily Messages */}
+                  <div className="absolute -left-2 bottom-1/4 bg-white rounded-xl shadow-lg px-3 py-2 animate-float" style={{ animationDelay: '2s' }}>
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 rounded-full bg-champagne-100 flex items-center justify-center">
+                        <svg className="w-3.5 h-3.5 text-champagne-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-navy-900">Daily Messages</p>
+                        <p className="text-[10px] text-navy-500">Good morning videos</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
@@ -58,7 +102,7 @@ function Landing() {
                 <p className="text-sm text-navy-500 mb-4">Trusted by families across the world</p>
                 <div className="flex items-center gap-8">
                   <div className="text-center">
-                    <div className="text-2xl font-serif font-semibold text-navy-900">500+</div>
+                    <div className="text-2xl font-serif font-semibold text-navy-900">2000+</div>
                     <div className="text-sm text-navy-500">Families Served</div>
                   </div>
                   <div className="text-center">
@@ -73,8 +117,8 @@ function Landing() {
               </div>
             </div>
 
-            {/* Right Column - Image/Visual */}
-            <div className="relative animate-float">
+            {/* Right Column - Image/Visual (hidden on mobile, shown on desktop) */}
+            <div className="hidden lg:block relative animate-float">
               <div className="relative aspect-square max-w-lg mx-auto">
                 {/* Decorative elements */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-primary-100 via-champagne-100 to-primary-50 rounded-full blur-3xl opacity-60"></div>
@@ -123,7 +167,7 @@ function Landing() {
       </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-navy-50">
+      <section className="py-16 lg:py-24 bg-navy-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="section-heading mb-4">How We Help Families</h2>
@@ -176,7 +220,7 @@ function Landing() {
       </section>
 
       {/* Use Cases Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="section-heading mb-4">Who We Serve</h2>
@@ -238,7 +282,7 @@ function Landing() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-navy-50">
+      <section className="py-16 lg:py-24 bg-navy-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="section-heading mb-4">What Families Say</h2>
@@ -321,7 +365,7 @@ function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-navy-900 to-navy-800 relative overflow-hidden">
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-navy-900 to-navy-800 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-champagne-500/10 rounded-full blur-3xl"></div>

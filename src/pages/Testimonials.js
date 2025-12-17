@@ -77,7 +77,7 @@ function Testimonials() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-serif font-semibold text-navy-900">500+</div>
+              <div className="text-4xl md:text-5xl font-serif font-semibold text-navy-900">2000+</div>
               <div className="text-navy-500 mt-1">Families Served</div>
             </div>
             <div className="text-center">
@@ -208,7 +208,7 @@ function Testimonials() {
             Ready to Preserve Your Loved One's Legacy?
           </h2>
           <p className="text-xl text-navy-200 mb-10 max-w-2xl mx-auto">
-            Join hundreds of families who have found comfort through ForeverPresent. Schedule a free consultation today.
+            Join thousands of families who have found comfort through ForeverPresent. Schedule a free consultation today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
