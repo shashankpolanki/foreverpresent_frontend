@@ -18,6 +18,8 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
   const [hasBeenReady, setHasBeenReady] = useState(false);
   const [introSent, setIntroSent] = useState(false);
   const [userSpokeFirst, setUserSpokeFirst] = useState(false);
+  const [showMemoryModal, setShowMemoryModal] = useState(false);
+  const [memoryText, setMemoryText] = useState('');
 
   // Use refs for activity tracking to avoid re-renders
   const lastActivityTimeRef = useRef(Date.now());
@@ -188,6 +190,32 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
     }
   };
 
+  const handleAddMemory = useCallback(() => {
+    setShowMemoryModal(true);
+  }, []);
+
+  const handleSubmitMemory = useCallback(async () => {
+    if (!memoryText.trim() || !daily || !conversationId) return;
+
+    try {
+      // Append context to the conversation
+      await daily.sendAppMessage({
+        message_type: "conversation",
+        event_type: "conversation.append_llm_context",
+        conversation_id: conversationId,
+        properties: {
+          context: `Additional memory/context shared by the user: ${memoryText.trim()}`
+        }
+      }, '*');
+
+      console.log('Memory context added:', memoryText.trim());
+      setMemoryText('');
+      setShowMemoryModal(false);
+    } catch (error) {
+      console.error('Failed to add memory context:', error);
+    }
+  }, [memoryText, daily, conversationId]);
+
   const handleLeave = useCallback((reason = 'user_ended') => {
     let message = 'Ending call...';
 
@@ -329,33 +357,28 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
             <span className="text-navy-900">Forever</span>
             <span className="text-champagne-500">Present</span>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              {isReady ? (
-                <>
-                  {creatorName && (
-                    <span className="text-navy-700 text-sm font-medium mr-2">{creatorName}</span>
-                  )}
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-navy-600 text-sm">Connected</span>
-                </>
-              ) : hasBeenReady && maxDurationMinutes && callStartTimeRef.current ? (
-                <>
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span className="text-navy-600 text-sm">Ending call...</span>
-                </>
-              ) : meetingState === 'joined-meeting' ? (
-                <>
-                  <div className="w-2 h-2 bg-champagne-500 rounded-full animate-pulse"></div>
-                  <span className="text-navy-600 text-sm">Connecting...</span>
-                </>
-              ) : (
-                <>
-                  <div className="w-2 h-2 bg-champagne-500 rounded-full animate-pulse"></div>
-                  <span className="text-navy-600 text-sm">Connecting...</span>
-                </>
-              )}
-            </div>
+          <div className="flex items-center gap-2">
+            {isReady ? (
+              <>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-navy-600 text-sm">Connected</span>
+              </>
+            ) : hasBeenReady && maxDurationMinutes && callStartTimeRef.current ? (
+              <>
+                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                <span className="text-navy-600 text-sm">Ending call...</span>
+              </>
+            ) : meetingState === 'joined-meeting' ? (
+              <>
+                <div className="w-2 h-2 bg-champagne-500 rounded-full animate-pulse"></div>
+                <span className="text-navy-600 text-sm">Connecting...</span>
+              </>
+            ) : (
+              <>
+                <div className="w-2 h-2 bg-champagne-500 rounded-full animate-pulse"></div>
+                <span className="text-navy-600 text-sm">Connecting...</span>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -370,6 +393,7 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
             isDisconnecting={isDisconnecting}
             maxDurationMinutes={maxDurationMinutes}
             callStartTime={callStartTimeRef.current}
+            onAddMemory={handleAddMemory}
           />
         </div>
       </div>
@@ -389,8 +413,62 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
         </div>
       )}
 
-      {/* Chat input - compact and unobtrusive */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-4">
+      {/* Memory Modal */}
+      {showMemoryModal && (
+        <div className="fixed inset-0 bg-navy-900/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-serif font-semibold text-navy-900">Share a Memory</h3>
+              <button
+                onClick={() => {
+                  setShowMemoryModal(false);
+                  setMemoryText('');
+                }}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <svg className="w-5 h-5 text-navy-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-navy-600 text-sm mb-4">
+              Share additional context or a memory to enrich the conversation.
+            </p>
+            <textarea
+              value={memoryText}
+              onChange={(e) => setMemoryText(e.target.value)}
+              placeholder="e.g., Remember when we went to the beach last summer..."
+              className="w-full h-32 px-4 py-3 border border-gray-200 rounded-xl text-navy-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+              autoFocus
+            />
+            <div className="flex gap-3 mt-4">
+              <button
+                onClick={() => {
+                  setShowMemoryModal(false);
+                  setMemoryText('');
+                }}
+                className="flex-1 py-3 px-4 rounded-xl border border-gray-200 text-navy-700 font-medium hover:bg-gray-50 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSubmitMemory}
+                disabled={!memoryText.trim()}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${
+                  memoryText.trim()
+                    ? 'bg-primary-600 text-white hover:bg-primary-700'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                Add Memory
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Chat input - with gradient to cover video bottom */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pt-8 pb-4 px-4 bg-gradient-to-t from-white via-white/95 to-transparent">
         <div className="max-w-xl mx-auto">
           <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 border border-gray-200/50 shadow-sm">
             <input

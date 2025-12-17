@@ -70,6 +70,8 @@ export const useStartHaircheck = () => {
 			};
 
 			// Only add advanced settings for non-Safari browsers
+			// Note: Keeping noise-cancellation for echo cancellation (prevents AI hearing itself)
+			// but removing background-blur for faster startup
 			if (!isSafari) {
 				cameraOptions.audioSource = true;
 				cameraOptions.inputSettings = {
@@ -79,15 +81,6 @@ export const useStartHaircheck = () => {
 						},
 					},
 				};
-
-				// Add video settings if camera was granted
-				if (videoGranted) {
-					cameraOptions.inputSettings.video = {
-						processor: {
-							type: 'background-blur'
-						}
-					};
-				}
 			}
 
 			await daily.startCamera(cameraOptions);

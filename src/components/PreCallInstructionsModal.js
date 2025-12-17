@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 function PreCallInstructionsModal({ onContinue }) {
   const [countdown, setCountdown] = useState(5);
   const onContinueRef = useRef(onContinue);
+  const hasTriggeredRef = useRef(false);
 
   // Keep ref up to date
   useEffect(() => {
@@ -10,11 +11,15 @@ function PreCallInstructionsModal({ onContinue }) {
   }, [onContinue]);
 
   useEffect(() => {
-    // Auto-continue when countdown reaches 0
-    if (countdown === 0) {
+    // Auto-continue when countdown reaches 0 (only trigger once)
+    if (countdown === 0 && !hasTriggeredRef.current) {
+      hasTriggeredRef.current = true;
       onContinueRef.current();
       return;
     }
+
+    // Don't set new timer if already triggered or countdown is 0
+    if (countdown === 0) return;
 
     // Decrement countdown every second
     const timer = setTimeout(() => {

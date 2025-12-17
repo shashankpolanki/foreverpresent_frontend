@@ -78,8 +78,35 @@
 }
 
 .leaveButton:hover {
-	background: rgba(239, 68, 68, 1);
+	background: rgba(239, 68, 68, 0.8);
 	border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+.memoryButton {
+	background: rgba(255, 255, 255, 0.85);
+	color: #60a5fa;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	height: 2.75rem;
+	width: 2.75rem;
+	border-radius: 9999px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(4px);
+}
+
+.memoryButton:hover {
+	background: rgba(255, 255, 255, 0.95);
+	border-color: rgba(96, 165, 250, 0.5);
+}
+
+.memoryButton svg {
+	width: 1.25rem;
+	height: 1.25rem;
+	color: #60a5fa;
+	overflow: visible;
 }
 
 .leaveButtonIcon {

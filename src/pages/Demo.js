@@ -5,7 +5,7 @@ import { ConversationWrapper } from '../components/ConversationWrapper';
 import { HairCheck } from '../components/cvi/components/hair-check';
 import PasswordModal from '../components/PasswordModal';
 import PreCallInstructionsModal from '../components/PreCallInstructionsModal';
-import AddMemoryModal from '../components/AddMemoryModal';
+import Navbar from '../components/Navbar';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
@@ -27,7 +27,6 @@ function Demo() {
   const [isLoadingCreator, setIsLoadingCreator] = useState(false);
   const [showPreCallInstructions, setShowPreCallInstructions] = useState(false);
   const [finishedFirstCall, setFinishedFirstCall] = useState(false);
-  const [showAddMemoryModal, setShowAddMemoryModal] = useState(false);
 
   // Check for existing token on mount and fetch creator info if username provided
   useEffect(() => {
@@ -263,19 +262,11 @@ function Demo() {
     <div className="min-h-screen bg-gradient-hero overflow-hidden">
       {!isInCall && !showHairCheck ? (
         <>
-          {/* Header */}
-          <header className="absolute top-0 left-0 right-0 z-50 px-8 py-6 flex justify-between items-center">
-            <Link to="/" className="text-2xl font-serif font-semibold">
-              <span className="text-navy-900">Forever</span>
-              <span className="text-champagne-500">Present</span>
-            </Link>
-            <Link to="/" className="px-6 py-2 border border-primary-500/50 rounded-full text-primary-600 hover:bg-primary-50 transition-all">
-              Back to Home
-            </Link>
-          </header>
+          {/* Navbar */}
+          <Navbar />
 
           {/* Demo Landing */}
-          <div className="relative min-h-screen flex items-center justify-center">
+          <div className="relative min-h-screen flex items-center justify-center pt-16">
             {/* Background decoration */}
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary-100 rounded-full blur-3xl opacity-40"></div>
@@ -306,7 +297,7 @@ function Demo() {
                 </div>
               )}
 
-              {/* Action Buttons */}
+              {/* Action Button */}
               <div className="flex flex-col items-center gap-4 w-full max-w-xs mx-auto">
                 {/* Main CTA Button */}
                 <button
@@ -337,19 +328,6 @@ function Demo() {
                         Start Video Call
                       </>
                     )}
-                  </span>
-                </button>
-
-                {/* Add More Memories Button - Secondary */}
-                <button
-                  onClick={() => setShowAddMemoryModal(true)}
-                  className="w-full group px-8 py-4 rounded-2xl text-base font-medium transition-all bg-white border border-gray-200 text-navy-700 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-700 shadow-sm hover:shadow"
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    Add More Memories
                   </span>
                 </button>
               </div>
@@ -410,6 +388,7 @@ function Demo() {
             conversationUrl={conversationUrl}
             conversationId={conversationId}
             creatorUsername={username}
+            creatorName={creatorInfo?.full_name || (username === 'grandmademo' ? 'Grandma Demo' : username)}
             onLeave={endVideoCall}
             isDemo={true}
           />
@@ -431,16 +410,6 @@ function Demo() {
         />
       )}
 
-      {/* Add Memory Modal */}
-      {showAddMemoryModal && (
-        <AddMemoryModal
-          onClose={() => setShowAddMemoryModal(false)}
-          onSubmit={(memory) => {
-            console.log('Memory submitted:', memory);
-            setShowAddMemoryModal(false);
-          }}
-        />
-      )}
     </div>
   );
 }
