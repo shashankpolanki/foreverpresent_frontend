@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function PreCallInstructionsModal({ onContinue }) {
   const [countdown, setCountdown] = useState(5);
+  const onContinueRef = useRef(onContinue);
+
+  // Keep ref up to date
+  useEffect(() => {
+    onContinueRef.current = onContinue;
+  }, [onContinue]);
 
   useEffect(() => {
     // Auto-continue when countdown reaches 0
     if (countdown === 0) {
-      onContinue();
+      onContinueRef.current();
       return;
     }
 
     // Decrement countdown every second
     const timer = setTimeout(() => {
-      setCountdown(countdown - 1);
+      setCountdown(prev => prev - 1);
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [countdown, onContinue]);
+  }, [countdown]);
 
   // Calculate progress percentage for the circular ring
   const progress = ((5 - countdown) / 5) * 100;

@@ -361,7 +361,7 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
       </div>
 
       {/* Main video area */}
-      <div className="absolute inset-0 pt-16 pb-28">
+      <div className="absolute inset-0 pt-16 pb-16">
         <div className="w-full h-full">
           <Conversation
             conversationUrl={conversationUrl}
@@ -389,37 +389,37 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
         </div>
       )}
 
-      {/* Chat input */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-6">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex items-center gap-3 bg-white rounded-full p-2 border border-gray-200 shadow-lg">
+      {/* Chat input - compact and unobtrusive */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 px-4 pb-4">
+        <div className="max-w-xl mx-auto">
+          <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 border border-gray-200/50 shadow-sm">
             <input
               ref={inputRef}
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyPress={handleKeyPress}
-              placeholder={isReady ? "Type a message or start speaking..." : "Waiting for connection..."}
+              placeholder={isReady ? "Type a message or start speaking..." : "Connecting..."}
               disabled={isSending || !isReady}
-              className="flex-1 px-4 py-2 bg-transparent text-navy-900 placeholder-gray-400 outline-none focus:outline-none focus:ring-0 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-2 py-1.5 bg-transparent text-sm text-navy-900 placeholder-gray-400 outline-none focus:outline-none focus:ring-0 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             />
             <button
               onClick={handleSendMessage}
               disabled={!message.trim() || isSending || !isReady}
-              className={`p-3 rounded-full transition-all duration-300 transform flex-shrink-0 ${
+              className={`p-2 rounded-full transition-all duration-200 transform flex-shrink-0 ${
                 message.trim() && !isSending && isReady
-                  ? 'bg-primary-600 text-white shadow-md hover:bg-primary-700 hover:scale-105 active:scale-95'
-                  : 'bg-gray-200 text-gray-400'
+                  ? 'bg-primary-600 text-white hover:bg-primary-700 active:scale-95'
+                  : 'bg-gray-100 text-gray-400'
               }`}
             >
               {isSending ? (
-                <svg className="w-5 h-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
               ) : (
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
                 </svg>
               )}

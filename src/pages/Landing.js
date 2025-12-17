@@ -52,7 +52,7 @@ function Landing() {
                         </svg>
                       </div>
                       <div>
-                        <p className="text-xs font-medium text-navy-900">AI Video Call</p>
+                        <p className="text-xs font-medium text-navy-900">Video Call</p>
                         <p className="text-[10px] text-navy-500">Available 24/7</p>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ function Landing() {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-navy-900">AI Video Call</p>
+                      <p className="text-sm font-medium text-navy-900">Video Call</p>
                       <p className="text-xs text-navy-500">Available 24/7</p>
                     </div>
                   </div>
