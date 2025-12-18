@@ -13,26 +13,39 @@ function Landing() {
         <div className="absolute inset-0 bg-gradient-hero"></div>
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-champagne-50/50 to-transparent"></div>
 
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20">
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-8 lg:pt-20">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Column - Text */}
             <div className="animate-fadeIn">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-champagne-100 rounded-full mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-champagne-100 rounded-full mb-4 lg:mb-6">
                 <span className="w-2 h-2 bg-champagne-500 rounded-full"></span>
                 <span className="text-champagne-700 text-sm font-medium">Preserve What Matters Most</span>
               </div>
 
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-semibold text-navy-900 leading-tight mb-6">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-semibold text-navy-900 leading-tight mb-4 lg:mb-6">
                 Keep Their <span className="text-gold-gradient">Memory</span> Alive,{' '}
                 <span className="text-primary-600">Forever</span>
               </h1>
 
-              <p className="text-xl text-navy-600 leading-relaxed mb-8 max-w-lg">
-                We create meaningful AI experiences that <strong className="text-navy-800">let you see, hear, and speak with your loved ones</strong>, preserving their essence for generations to come.
+              <p className="text-lg lg:text-xl text-navy-600 leading-relaxed mb-6 lg:mb-8 max-w-lg">
+                We create meaningful AI experiences that <strong className="text-navy-800">let you see, hear, and speak with your passed away loved ones</strong>, preserving their essence for generations to come.
               </p>
 
-              {/* Mobile-only GIF preview - shown between text and CTAs on mobile */}
-              <div className="lg:hidden mb-8">
+              {/* CTA Button - shown before GIF on mobile */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8 lg:mb-0">
+                <a
+                  href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+                  className="btn-primary inline-flex items-center justify-center gap-3 group"
+                >
+                  Connect With Loved One
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* Mobile-only GIF preview - shown after CTA on mobile */}
+              <div className="lg:hidden">
                 <div className="relative max-w-sm mx-auto">
                   <div className="absolute -inset-2 bg-gradient-to-br from-primary-100 via-champagne-100 to-primary-50 rounded-2xl blur-xl opacity-60"></div>
                   <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
@@ -73,18 +86,6 @@ function Landing() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
-                  className="btn-primary inline-flex items-center justify-center gap-3 group"
-                >
-                  Connect With Loved One
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </a>
               </div>
 
               {/* Trust indicators */}
