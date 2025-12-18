@@ -17,8 +17,8 @@ function Navbar() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
-              Home
+            <Link to="/how-it-works" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
+              How It Works
             </Link>
             <Link to="/testimonials" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
               Testimonials
@@ -43,7 +43,7 @@ function Navbar() {
               href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
               className="bg-primary-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-primary-700 transition-all shadow-md hover:shadow-lg"
             >
-              Call Now
+              Talk With Us
             </a>
           </div>
 
@@ -67,11 +67,11 @@ function Navbar() {
           <div className="md:hidden py-4 border-t border-gray-100">
             <div className="flex flex-col gap-4">
               <Link
-                to="/"
+                to="/how-it-works"
                 className="text-navy-600 hover:text-navy-900 font-medium transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Home
+                How It Works
               </Link>
               <Link
                 to="/testimonials"
@@ -108,7 +108,7 @@ function Navbar() {
                   className="bg-primary-600 text-white px-5 py-2 rounded-lg font-medium text-center hover:bg-primary-700 transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Call Now
+                  Talk With Us
                 </a>
               </div>
             </div>
