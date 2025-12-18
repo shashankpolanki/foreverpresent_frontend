@@ -26,7 +26,7 @@ function Navbar() {
             <Link to="/demo" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
               Demo
             </Link>
-            <a href="mailto:hello@foreverpresent.ai" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
+            <a href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
               Contact
             </a>
           </div>
@@ -40,7 +40,7 @@ function Navbar() {
               Sign In
             </Link>
             <a
-              href="#calendly"
+              href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
               className="bg-primary-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-primary-700 transition-all shadow-md hover:shadow-lg"
             >
               Call Now
@@ -88,7 +88,9 @@ function Navbar() {
                 Demo
               </Link>
               <a
-                href="mailto:hello@foreverpresent.ai"
+                href="https://api.foreverpresent.ai/widget/bookings/forever-present"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-navy-600 hover:text-navy-900 font-medium transition-colors"
               >
                 Contact
@@ -102,7 +104,7 @@ function Navbar() {
                   Sign In
                 </Link>
                 <a
-                  href="#calendly"
+                  href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
                   className="bg-primary-600 text-white px-5 py-2 rounded-lg font-medium text-center hover:bg-primary-700 transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >

@@ -77,7 +77,7 @@ function Landing() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#calendly"
+                  href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
                   className="btn-primary inline-flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -380,7 +380,7 @@ function Landing() {
           </p>
           <div className="flex justify-center">
             <a
-              href="#calendly"
+              href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 bg-white text-navy-900 px-10 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg group"
             >
               See How We Can Help
