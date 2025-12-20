@@ -212,7 +212,7 @@ function Testimonials() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="https://api.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+              href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-white text-navy-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all shadow-lg"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
