@@ -77,15 +77,15 @@ function Landing() {
 
               {/* CTA Button - shown after GIF on mobile */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8 lg:mb-0">
-                <a
-                  href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+                <Link
+                  to="/connect"
                   className="btn-primary inline-flex items-center justify-center gap-3 group"
                 >
                   Connect With Loved One
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </a>
+                </Link>
               </div>
 
               {/* Trust indicators */}
@@ -370,15 +370,15 @@ function Landing() {
             Schedule a free consultation to learn how ForeverPresent can help your family stay connected.
           </p>
           <div className="flex justify-center">
-            <a
-              href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+            <Link
+              to="/connect"
               className="inline-flex items-center justify-center gap-3 bg-white text-navy-900 px-10 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all shadow-lg group"
             >
               See How We Can Help
               <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -392,6 +392,7 @@ function Landing() {
                 Forever<span className="text-champagne-400">Present</span>
               </div>
               <p className="text-navy-400 mt-2">Preserving memories, forever.</p>
+              <p className="text-navy-400 mt-1">Email: <a href="mailto:team@foreverpresent.ai" className="hover:text-white transition-colors">team@foreverpresent.ai</a></p>
             </div>
             <div className="flex gap-8 text-navy-300">
               <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>

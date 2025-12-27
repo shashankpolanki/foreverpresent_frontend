@@ -211,15 +211,15 @@ function Testimonials() {
             Join thousands of families who have found comfort through ForeverPresent. Schedule a free consultation today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+            <Link
+              to="/connect"
               className="inline-flex items-center justify-center gap-2 bg-white text-navy-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all shadow-lg"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               Schedule Call Today
-            </a>
+            </Link>
             <Link
               to="/demo"
               className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all"

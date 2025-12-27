@@ -8,6 +8,7 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Testimonials from './pages/Testimonials';
 import HowItWorks from './pages/HowItWorks';
+import Connect from './pages/Connect';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/connect" element={<Connect />} />
 
           {/* Demo Routes */}
           <Route path="/demo" element={<Demo />} />

@@ -1,17 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ConversationWrapper } from '../components/ConversationWrapper';
 import { HairCheck } from '../components/cvi/components/hair-check';
-import PasswordModal from '../components/PasswordModal';
 import PreCallInstructionsModal from '../components/PreCallInstructionsModal';
 import Navbar from '../components/Navbar';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
+// Hide chat widget on demo page
+const hideChatWidget = () => {
+  const chatWidget = document.querySelector('chat-widget');
+  if (chatWidget) chatWidget.style.display = 'none';
+};
+
+const showChatWidget = () => {
+  const chatWidget = document.querySelector('chat-widget');
+  if (chatWidget) chatWidget.style.display = 'block';
+};
+
+// Demo configuration
+const DEMO_USERNAME = 'angelina';
+const DEMO_TITLE = 'Connect with Mom Demo';
+const DEMO_DURATION_SECONDS = 180; // 3 minutes
+
 function Demo() {
-  const { username: urlUsername } = useParams();
-  const username = urlUsername || 'grandmademo'; // Default to grandmademo
+  // Lead capture modal state
+  const [showLeadModal, setShowLeadModal] = useState(false);
+  const [leadData, setLeadData] = useState({
+    email: '',
+    familyMember: ''
+  });
+  const [isSubmittingLead, setIsSubmittingLead] = useState(false);
+
+  // Call state
   const [isLoading, setIsLoading] = useState(false);
   const [conversationUrl, setConversationUrl] = useState(null);
   const [conversationId, setConversationId] = useState(null);
@@ -19,216 +41,152 @@ function Demo() {
   const [isInCall, setIsInCall] = useState(false);
   const [showHairCheck, setShowHairCheck] = useState(false);
   const [isJoining, setIsJoining] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [authToken, setAuthToken] = useState(null);
-  const [credits, setCredits] = useState(0);
   const [isCancelling, setIsCancelling] = useState(false);
-  const [creatorInfo, setCreatorInfo] = useState(null);
-  const [isLoadingCreator, setIsLoadingCreator] = useState(false);
   const [showPreCallInstructions, setShowPreCallInstructions] = useState(false);
-  const [finishedFirstCall, setFinishedFirstCall] = useState(false);
 
-  // Check for existing token on mount and fetch creator info if username provided
+  // Timer state
+  const [timeRemaining, setTimeRemaining] = useState(DEMO_DURATION_SECONDS);
+  const timerRef = useRef(null);
+  const callStartTimeRef = useRef(null);
+
+  // Thank you modal state
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
+
+  const familyMemberOptions = [
+    { id: 'mother', label: 'Mother' },
+    { id: 'father', label: 'Father' },
+    { id: 'spouse', label: 'Spouse/Partner' },
+    { id: 'grandparent', label: 'Grandparent' },
+    { id: 'child', label: 'Child' },
+    { id: 'sibling', label: 'Sibling' },
+    { id: 'other', label: 'Other family member' },
+    { id: 'demo', label: 'Just trying out the demo' },
+  ];
+
+  // Hide chat widget on demo page
   useEffect(() => {
-    const token = localStorage.getItem('demo_token');
-    const storedCredits = localStorage.getItem('demo_credits');
-    const storedFinishedFirstCall = localStorage.getItem('demo_finished_first_call');
-    if (token) {
-      setAuthToken(token);
-      setCredits(parseInt(storedCredits) || 0);
-      setFinishedFirstCall(storedFinishedFirstCall === 'true');
+    hideChatWidget();
+    return () => showChatWidget();
+  }, []);
+
+  // Timer effect - counts down when in call
+  useEffect(() => {
+    if (isInCall && !timerRef.current) {
+      callStartTimeRef.current = Date.now();
+
+      timerRef.current = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - callStartTimeRef.current) / 1000);
+        const remaining = Math.max(0, DEMO_DURATION_SECONDS - elapsed);
+        setTimeRemaining(remaining);
+
+        if (remaining <= 0) {
+          clearInterval(timerRef.current);
+          timerRef.current = null;
+          endVideoCall(true);
+        }
+      }, 1000);
     }
 
-    // Only fetch creator info for non-default demos (skip for grandmademo since we hardcode it)
-    if (username && username !== 'grandmademo') {
-      fetchCreatorInfo();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [username]);
-
-  const fetchCreatorInfo = async () => {
-    setIsLoadingCreator(true);
-    try {
-      const response = await axios.get(`${API_URL}/api/creator/${username}`);
-      setCreatorInfo(response.data);
-    } catch (err) {
-      console.error('Error fetching creator info:', err);
-      if (err.response?.status === 404) {
-        setError(`Profile '${username}' not found`);
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
       }
-    } finally {
-      setIsLoadingCreator(false);
-    }
+    };
+  }, [isInCall]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
   const handleStartClick = () => {
-    // Check if we have a valid token
-    if (!authToken) {
-      setShowPasswordModal(true);
-    } else {
-      // Always show pre-call instructions
+    setShowLeadModal(true);
+  };
+
+  const handleLeadInputChange = (e) => {
+    const { name, value } = e.target;
+    setLeadData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleLeadSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmittingLead(true);
+
+    try {
+      // Send to GoHighLevel webhook
+      const GHL_WEBHOOK_URL = process.env.REACT_APP_GHL_WEBHOOK_URL;
+
+      if (GHL_WEBHOOK_URL) {
+        await fetch(GHL_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: leadData.email,
+            family_member_lost: leadData.familyMember,
+            source: 'demo_page',
+            timestamp: new Date().toISOString()
+          }),
+        });
+      }
+
+      localStorage.setItem('demo_lead', JSON.stringify(leadData));
+      setShowLeadModal(false);
       setShowPreCallInstructions(true);
+    } catch (err) {
+      console.error('Error submitting lead:', err);
+      setShowLeadModal(false);
+      setShowPreCallInstructions(true);
+    } finally {
+      setIsSubmittingLead(false);
     }
   };
 
   const handlePreCallContinue = async () => {
     setShowPreCallInstructions(false);
-
-    // Mark first call as complete in backend and localStorage
-    try {
-      await axios.post(
-        `${API_URL}/api/demo/mark-first-call-complete`,
-        {},
-        {
-          headers: {
-            'Authorization': `Bearer ${authToken}`
-          }
-        }
-      );
-      setFinishedFirstCall(true);
-      localStorage.setItem('demo_finished_first_call', 'true');
-    } catch (err) {
-      console.error('Error marking first call complete:', err);
-      // Non-critical error, continue anyway
-      setFinishedFirstCall(true);
-      localStorage.setItem('demo_finished_first_call', 'true');
-    }
-
-    // Start the call
-    if (authToken) {
-      startVideoCallWithToken(authToken);
-    } else {
-      startVideoCall();
-    }
-  };
-
-  const handleAuthenticated = async (authData) => {
-    setAuthToken(authData.token);
-    setCredits(authData.credits);
-    const isFirstCall = !authData.finished_first_call;
-    setFinishedFirstCall(!isFirstCall);
-
-    // Store in localStorage for future sessions
-    localStorage.setItem('demo_finished_first_call', (!isFirstCall).toString());
-
-    setShowPasswordModal(false);
-
-    // After password authentication, always show pre-call instructions
-    setTimeout(() => {
-      setShowPreCallInstructions(true);
-    }, 100);
-  };
-
-  const startVideoCallWithToken = async (token) => {
-    if (!token) {
-      setShowPasswordModal(true);
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const requestData = username ? { creator_username: username } : {};
-      const response = await axios.post(
-        `${API_URL}/api/demo/start-call`,
-        requestData,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-      );
-
-      if (response.data.conversation_url) {
-        setConversationUrl(response.data.conversation_url);
-        setConversationId(response.data.conversation_id);
-        setCredits(response.data.credits_left);
-        localStorage.setItem('demo_credits', response.data.credits_left);
-        setShowHairCheck(true);
-      }
-    } catch (err) {
-      console.error('Error starting video call:', err);
-      if (err.response?.status === 401) {
-        // Token expired or invalid
-        localStorage.removeItem('demo_token');
-        localStorage.removeItem('demo_credits');
-        setAuthToken(null);
-        setShowPasswordModal(true);
-      } else if (err.response?.status === 403) {
-        setError('No credits remaining. Please contact hello@foreverpresent.ai');
-      } else {
-        setError((err.response?.data?.detail || 'Failed to start video call') + '. Try again.');
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    startVideoCall();
   };
 
   const startVideoCall = async () => {
-    if (!authToken) {
-      setShowPasswordModal(true);
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
 
     try {
-      const requestData = username ? { creator_username: username } : {};
       const response = await axios.post(
-        `${API_URL}/api/demo/start-call`,
-        requestData,
+        `${API_URL}/api/demo/start-public-call`,
         {
-          headers: {
-            'Authorization': `Bearer ${authToken}`
-          }
+          creator_username: DEMO_USERNAME,
+          lead_email: leadData.email
         }
       );
 
       if (response.data.conversation_url) {
         setConversationUrl(response.data.conversation_url);
         setConversationId(response.data.conversation_id);
-        setCredits(response.data.credits_left);
-        localStorage.setItem('demo_credits', response.data.credits_left);
         setShowHairCheck(true);
       }
     } catch (err) {
       console.error('Error starting video call:', err);
-      if (err.response?.status === 401) {
-        // Token expired or invalid
-        localStorage.removeItem('demo_token');
-        localStorage.removeItem('demo_credits');
-        setAuthToken(null);
-        setShowPasswordModal(true);
-      } else if (err.response?.status === 403) {
-        setError('No credits remaining. Please contact hello@foreverpresent.ai');
-      } else {
-        setError((err.response?.data?.detail || 'Failed to start video call') + '. Try again.');
-      }
+      setError((err.response?.data?.detail || 'Failed to start video call') + '. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const endVideoCall = async () => {
+  const endVideoCall = async (timerExpired = false) => {
     setIsCancelling(true);
-    if (conversationId && authToken) {
-      try {
-        const response = await axios.post(
-          `${API_URL}/api/demo/end-call/${conversationId}`,
-          {},
-          {
-            headers: {
-              'Authorization': `Bearer ${authToken}`
-            }
-          }
-        );
 
-        if (response.data.credits_remaining !== undefined) {
-          setCredits(response.data.credits_remaining);
-          localStorage.setItem('demo_credits', response.data.credits_remaining);
-        }
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+
+    if (conversationId) {
+      try {
+        await axios.post(`${API_URL}/api/demo/end-public-call/${conversationId}`);
       } catch (err) {
         console.error('Error ending video call:', err);
       }
@@ -239,30 +197,22 @@ function Demo() {
     setIsInCall(false);
     setShowHairCheck(false);
     setIsJoining(false);
-    setError(null);
     setIsCancelling(false);
+    setTimeRemaining(DEMO_DURATION_SECONDS);
+
+    if (timerExpired || (callStartTimeRef.current && Date.now() - callStartTimeRef.current > 10000)) {
+      setShowThankYouModal(true);
+    }
   };
 
-  // Show loading state while fetching creator info
-  if (isLoadingCreator) {
-    return (
-      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
-        <div className="text-center">
-          <svg className="animate-spin h-10 w-10 text-primary-500 mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-          </svg>
-          <p className="text-navy-500">Loading demo...</p>
-        </div>
-      </div>
-    );
-  }
+  const handleScheduleCall = () => {
+    window.open('https://calendly.foreverpresent.ai/widget/bookings/forever-present', '_blank');
+  };
 
   return (
     <div className="min-h-screen bg-gradient-hero overflow-hidden">
       {!isInCall && !showHairCheck ? (
         <>
-          {/* Navbar */}
           <Navbar />
 
           {/* Demo Landing */}
@@ -283,12 +233,10 @@ function Demo() {
               </div>
 
               <h1 className="text-5xl md:text-6xl font-serif font-semibold mb-6 text-navy-900">
-                {username === 'grandmademo' ? 'Connect with Grandma Demo' : (creatorInfo ? `Connect with ${creatorInfo.full_name}` : 'Connect with Grandma Demo')}
+                {DEMO_TITLE}
               </h1>
               <p className="text-xl md:text-2xl text-navy-500 mb-12 max-w-xl mx-auto">
-                {creatorInfo
-                  ? `A meaningful AI experience that preserves their presence`
-                  : 'See how ForeverPresent can help preserve your loved one\'s memory'}
+                See how ForeverPresent can help preserve your loved one's memory
               </p>
 
               {error && (
@@ -299,7 +247,6 @@ function Demo() {
 
               {/* Action Button */}
               <div className="flex flex-col items-center gap-4 w-full max-w-xs mx-auto">
-                {/* Main CTA Button */}
                 <button
                   onClick={handleStartClick}
                   disabled={isLoading}
@@ -332,21 +279,14 @@ function Demo() {
                 </button>
               </div>
 
-              {credits > 0 && authToken && (
-                <p className="mt-4 text-sm text-primary-500">
-                  {credits} minute{credits !== 1 ? 's' : ''} remaining
-                </p>
-              )}
-
               <p className="mt-8 text-sm text-navy-400">
-                Need access? Email hello@foreverpresent.ai
+                3-minute demo experience
               </p>
             </div>
           </div>
         </>
       ) : showHairCheck && !isInCall ? (
         <div className="fixed inset-0 bg-navy-900 overflow-hidden">
-          {/* Hair Check / Waiting Room - Full Screen */}
           <div className="relative w-full h-full">
             <HairCheck
               conversationUrl={conversationUrl}
@@ -362,9 +302,8 @@ function Demo() {
               onCancel={endVideoCall}
             />
 
-            {/* Cancel button overlay */}
             <button
-              onClick={endVideoCall}
+              onClick={() => endVideoCall(false)}
               disabled={isCancelling}
               className="absolute top-4 right-4 z-50 px-5 py-2 bg-red-500/80 hover:bg-red-500 backdrop-blur border border-red-500/50 rounded-full text-white transition-all text-sm md:text-base md:px-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
@@ -384,32 +323,211 @@ function Demo() {
         </div>
       ) : isInCall ? (
         <div className="relative w-full h-screen">
+          {/* Timer overlay */}
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50">
+            <div className={`px-4 py-2 rounded-full backdrop-blur-sm border ${
+              timeRemaining <= 30
+                ? 'bg-red-500/90 border-red-400 text-white'
+                : 'bg-white/90 border-gray-200 text-navy-900'
+            }`}>
+              <div className="flex items-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-medium">{formatTime(timeRemaining)}</span>
+              </div>
+            </div>
+          </div>
+
           <ConversationWrapper
             conversationUrl={conversationUrl}
             conversationId={conversationId}
-            creatorUsername={username}
-            creatorName={creatorInfo?.full_name || (username === 'grandmademo' ? 'Grandma Demo' : username)}
-            onLeave={endVideoCall}
+            creatorUsername={DEMO_USERNAME}
+            creatorName="Mom"
+            onLeave={() => endVideoCall(false)}
             isDemo={true}
+            maxDurationMinutes={DEMO_DURATION_SECONDS / 60}
           />
         </div>
       ) : null}
 
-      {/* Password Modal */}
-      {showPasswordModal && (
-        <PasswordModal
-          onAuthenticated={handleAuthenticated}
-          onCancel={() => setShowPasswordModal(false)}
-        />
+      {/* Lead Capture Modal */}
+      {showLeadModal && (
+        <div className="fixed inset-0 bg-navy-900/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-serif font-semibold text-navy-900">
+                Before we begin...
+              </h2>
+              <button
+                onClick={() => setShowLeadModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <svg className="w-5 h-5 text-navy-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <p className="text-navy-600 mb-6">
+              Tell us a bit about yourself so we can personalize your experience.
+            </p>
+
+            {/* Form */}
+            <form onSubmit={handleLeadSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-navy-700 mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={leadData.email}
+                  onChange={handleLeadInputChange}
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all text-navy-900"
+                  placeholder="you@example.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="familyMember" className="block text-sm font-medium text-navy-700 mb-1">
+                  Who have you lost?
+                </label>
+                <select
+                  id="familyMember"
+                  name="familyMember"
+                  value={leadData.familyMember}
+                  onChange={handleLeadInputChange}
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all text-navy-900 bg-white"
+                >
+                  <option value="">Select an option</option>
+                  {familyMemberOptions.map(option => (
+                    <option key={option.id} value={option.id}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowLeadModal(false)}
+                  className="flex-1 py-3 px-4 rounded-xl border border-gray-200 text-navy-700 font-medium hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingLead}
+                  className="flex-1 py-3 px-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                >
+                  {isSubmittingLead ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    'Continue'
+                  )}
+                </button>
+              </div>
+            </form>
+
+            <p className="mt-4 text-center text-xs text-navy-400">
+              By continuing, you agree to our{' '}
+              <Link to="/privacy" className="text-primary-600 hover:underline">Privacy Policy</Link>
+            </p>
+          </div>
+        </div>
       )}
 
-      {/* Pre-Call Instructions Modal (First-time users only) */}
+      {/* Pre-Call Instructions Modal */}
       {showPreCallInstructions && (
         <PreCallInstructionsModal
           onContinue={handlePreCallContinue}
         />
       )}
 
+      {/* Thank You Modal */}
+      {showThankYouModal && (
+        <div className="fixed inset-0 bg-navy-900/90 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-8 max-w-lg w-full mx-4 shadow-2xl text-center">
+            {/* Success icon */}
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+              <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <h2 className="text-3xl font-serif font-semibold text-navy-900 mb-4">
+              Thank You for Trying ForeverPresent
+            </h2>
+
+            <p className="text-navy-600 mb-6 leading-relaxed">
+              You just experienced a glimpse of what's possible. Imagine having meaningful conversations with your loved one anytime you need them - hearing their voice, seeing their face, feeling their presence.
+            </p>
+
+            <div className="bg-champagne-50 rounded-2xl p-6 mb-8">
+              <h3 className="font-semibold text-navy-900 mb-2">What We Can Create For You:</h3>
+              <ul className="text-navy-600 text-left space-y-2">
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Unlimited video calls with your loved one's AI</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Their actual voice, mannerisms, and personality</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Daily good morning/good night messages</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Preserved memories for future generations</span>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              onClick={handleScheduleCall}
+              className="w-full py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 mb-4"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Schedule a Free Consultation
+            </button>
+
+            <button
+              onClick={() => setShowThankYouModal(false)}
+              className="text-navy-500 hover:text-navy-700 text-sm transition-colors"
+            >
+              Try the demo again
+            </button>
+
+            <p className="mt-6 text-sm text-navy-400">
+              Free consultation • No commitment required
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

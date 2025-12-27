@@ -154,17 +154,15 @@ function HowItWorks() {
             Let's have a conversation about your loved one. We're here to listen, understand, and help you create something truly meaningful.
           </p>
 
-          <a
-            href="https://calendly.foreverpresent.ai/widget/bookings/forever-present"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/connect"
             className="inline-flex items-center justify-center gap-3 bg-white text-navy-900 px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all shadow-lg group"
           >
             Call Us Today
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
 
           <p className="mt-6 text-navy-400 text-sm">
             Free consultation • No commitment required
@@ -183,7 +181,7 @@ function HowItWorks() {
             <div className="flex items-center gap-8 text-navy-300">
               <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
               <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
-              <a href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Contact</a>
+              <Link to="/connect" className="hover:text-white transition-colors">Contact</Link>
             </div>
             <p className="text-navy-400 text-sm">
               © {new Date().getFullYear()} ForeverPresent. All rights reserved.

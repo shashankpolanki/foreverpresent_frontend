@@ -26,9 +26,9 @@ function Navbar() {
             <Link to="/demo" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
               Demo
             </Link>
-            <a href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
+            <Link to="/connect" className="text-navy-600 hover:text-navy-900 font-medium transition-colors">
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* CTA Buttons */}
@@ -39,12 +39,12 @@ function Navbar() {
             >
               Sign In
             </Link>
-            <a
-              href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+            <Link
+              to="/connect"
               className="bg-primary-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-primary-700 transition-all shadow-md hover:shadow-lg"
             >
               Talk With Us
-            </a>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -87,14 +87,13 @@ function Navbar() {
               >
                 Demo
               </Link>
-              <a
-                href="https://calendly.foreverpresent.ai/widget/bookings/forever-present"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/connect"
                 className="text-navy-600 hover:text-navy-900 font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
               >
                 Contact
-              </a>
+              </Link>
               <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
                 <Link
                   to="/sign-in"
@@ -103,13 +102,13 @@ function Navbar() {
                 >
                   Sign In
                 </Link>
-                <a
-                  href="https://calendly.foreverpresent.ai/widget/bookings/forever-present" target="_blank" rel="noopener noreferrer"
+                <Link
+                  to="/connect"
                   className="bg-primary-600 text-white px-5 py-2 rounded-lg font-medium text-center hover:bg-primary-700 transition-all"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Talk With Us
-                </a>
+                </Link>
               </div>
             </div>
           </div>
