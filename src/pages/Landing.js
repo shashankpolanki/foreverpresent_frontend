@@ -81,7 +81,7 @@ function Landing() {
                   to="/connect"
                   className="btn-primary inline-flex items-center justify-center gap-3 group"
                 >
-                  Connect With Loved One
+                  Connect With Loved One ❤️
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -93,7 +93,7 @@ function Landing() {
                 <p className="text-sm text-navy-500 mb-4">Trusted by families across the world</p>
                 <div className="flex items-center gap-8">
                   <div className="text-center">
-                    <div className="text-2xl font-serif font-semibold text-navy-900">2000+</div>
+                    <div className="text-2xl font-serif font-semibold text-navy-900">2500+</div>
                     <div className="text-sm text-navy-500">Families Served</div>
                   </div>
                   <div className="text-center">
@@ -296,8 +296,8 @@ function Landing() {
                 "Being able to see my mother's face and hear her voice again has brought our whole family so much peace. It's like having her with us during the holidays again."
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-200 to-champagne-200 flex items-center justify-center">
-                  <span className="text-navy-700 font-semibold">SM</span>
+                <div className="w-12 h-12 rounded-full overflow-hidden">
+                  <img src="/sarah_img.png" alt="Sarah M." className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <p className="font-medium text-navy-900">Sarah M.</p>
@@ -319,8 +319,8 @@ function Landing() {
                 "My kids can now 'talk' to their grandfather whenever they miss him. It's helped them process their grief in such a healthy way. Worth every penny."
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-200 to-champagne-200 flex items-center justify-center">
-                  <span className="text-navy-700 font-semibold">JT</span>
+                <div className="w-12 h-12 rounded-full overflow-hidden">
+                  <img src="/james_img.png" alt="James T." className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <p className="font-medium text-navy-900">James T.</p>
@@ -342,8 +342,8 @@ function Landing() {
                 "Before my diagnosis, I worked with ForeverPresent to create something special for my family. Knowing they'll always have a piece of me brings incredible comfort."
               </p>
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-200 to-champagne-200 flex items-center justify-center">
-                  <span className="text-navy-700 font-semibold">RK</span>
+                <div className="w-12 h-12 rounded-full overflow-hidden">
+                  <img src="/robert_img.png" alt="Robert K." className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <p className="font-medium text-navy-900">Robert K.</p>

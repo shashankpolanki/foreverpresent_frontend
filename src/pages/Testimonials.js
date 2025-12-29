@@ -8,6 +8,7 @@ function Testimonials() {
       name: "Sarah Mitchell",
       role: "Lost her mother in 2023",
       initials: "SM",
+      image: "/sarah_img.png",
       rating: 5,
       quote: "Being able to see my mother's face and hear her voice again has brought our whole family so much peace. It's like having her with us during the holidays again. The technology is remarkable, but what really stands out is how thoughtfully the ForeverPresent team handled everything.",
       highlight: "It's like having her with us during the holidays again."
@@ -16,6 +17,7 @@ function Testimonials() {
       name: "James Thompson",
       role: "Father of 3",
       initials: "JT",
+      image: "/james_img.png",
       rating: 5,
       quote: "My kids can now 'talk' to their grandfather whenever they miss him. It's helped them process their grief in such a healthy way. Worth every penny. The conversations feel natural and my father's personality really shines through.",
       highlight: "It's helped them process their grief in such a healthy way."
@@ -24,6 +26,7 @@ function Testimonials() {
       name: "Robert Kim",
       role: "Legacy preservation client",
       initials: "RK",
+      image: "/robert_img.png",
       rating: 5,
       quote: "Before my diagnosis, I worked with ForeverPresent to create something special for my family. Knowing they'll always have a piece of me brings incredible comfort. The team was compassionate and professional throughout the entire process.",
       highlight: "Knowing they'll always have a piece of me brings incredible comfort."
@@ -77,7 +80,7 @@ function Testimonials() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-4xl md:text-5xl font-serif font-semibold text-navy-900">2000+</div>
+              <div className="text-4xl md:text-5xl font-serif font-semibold text-navy-900">2500+</div>
               <div className="text-navy-500 mt-1">Families Served</div>
             </div>
             <div className="text-center">
@@ -157,9 +160,15 @@ function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-200 to-champagne-200 flex items-center justify-center">
-                    <span className="text-navy-700 font-semibold">{testimonial.initials}</span>
-                  </div>
+                  {testimonial.image ? (
+                    <div className="w-12 h-12 rounded-full overflow-hidden">
+                      <img src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-200 to-champagne-200 flex items-center justify-center">
+                      <span className="text-navy-700 font-semibold">{testimonial.initials}</span>
+                    </div>
+                  )}
                   <div>
                     <p className="font-medium text-navy-900">{testimonial.name}</p>
                     <p className="text-sm text-navy-500">{testimonial.role}</p>

@@ -8,15 +8,59 @@ import Navbar from '../components/Navbar';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
-// Hide chat widget on demo page
+// Hide chat widget on demo page (GoHighLevel/Lead Connector widget)
 const hideChatWidget = () => {
-  const chatWidget = document.querySelector('chat-widget');
-  if (chatWidget) chatWidget.style.display = 'none';
+  // Try multiple selectors for the chat widget
+  const selectors = [
+    'chat-widget',
+    '[data-widget-id]',
+    '.lc_text-widget',
+    'iframe[src*="leadconnectorhq"]',
+    'iframe[src*="widgets"]',
+    '#chat-widget',
+    '.chat-widget'
+  ];
+
+  selectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      el.style.display = 'none';
+      el.style.visibility = 'hidden';
+    });
+  });
+
+  // Also hide any fixed position elements at bottom right that might be the widget
+  document.querySelectorAll('iframe').forEach(iframe => {
+    if (iframe.src && iframe.src.includes('leadconnector')) {
+      iframe.style.display = 'none';
+    }
+  });
 };
 
 const showChatWidget = () => {
-  const chatWidget = document.querySelector('chat-widget');
-  if (chatWidget) chatWidget.style.display = 'block';
+  const selectors = [
+    'chat-widget',
+    '[data-widget-id]',
+    '.lc_text-widget',
+    'iframe[src*="leadconnectorhq"]',
+    'iframe[src*="widgets"]',
+    '#chat-widget',
+    '.chat-widget'
+  ];
+
+  selectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      el.style.display = '';
+      el.style.visibility = '';
+    });
+  });
+
+  document.querySelectorAll('iframe').forEach(iframe => {
+    if (iframe.src && iframe.src.includes('leadconnector')) {
+      iframe.style.display = '';
+    }
+  });
 };
 
 // Demo configuration
@@ -63,10 +107,21 @@ function Demo() {
     { id: 'demo', label: 'Just trying out the demo' },
   ];
 
-  // Hide chat widget on demo page
+  // Hide chat widget on demo page (runs repeatedly to catch async-loaded widget)
   useEffect(() => {
     hideChatWidget();
-    return () => showChatWidget();
+
+    // Keep trying to hide it in case it loads after initial render
+    const hideInterval = setInterval(hideChatWidget, 500);
+
+    // Stop checking after 5 seconds
+    const timeout = setTimeout(() => clearInterval(hideInterval), 5000);
+
+    return () => {
+      clearInterval(hideInterval);
+      clearTimeout(timeout);
+      showChatWidget();
+    };
   }, []);
 
   // Timer effect - counts down when in call
@@ -225,11 +280,13 @@ function Demo() {
 
             {/* Demo content */}
             <div className="relative z-10 text-center px-8 max-w-3xl mx-auto">
-              {/* Decorative icon */}
-              <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-gradient-to-br from-primary-100 to-champagne-100 flex items-center justify-center">
-                <svg className="w-10 h-10 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
+              {/* Mom image */}
+              <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-champagne-400 shadow-xl">
+                <img
+                  src="/mom_img.png"
+                  alt="Mom"
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               <h1 className="text-5xl md:text-6xl font-serif font-semibold mb-6 text-navy-900">
@@ -305,7 +362,7 @@ function Demo() {
             <button
               onClick={() => endVideoCall(false)}
               disabled={isCancelling}
-              className="absolute top-4 right-4 z-50 px-5 py-2 bg-red-500/80 hover:bg-red-500 backdrop-blur border border-red-500/50 rounded-full text-white transition-all text-sm md:text-base md:px-6 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="fixed top-4 right-4 z-50 px-5 py-2 bg-red-500/80 hover:bg-red-500 backdrop-blur border border-red-500/50 rounded-full text-white transition-all text-sm md:text-base md:px-6 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isCancelling ? (
                 <span className="flex items-center gap-2">
@@ -323,22 +380,6 @@ function Demo() {
         </div>
       ) : isInCall ? (
         <div className="relative w-full h-screen">
-          {/* Timer overlay */}
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50">
-            <div className={`px-4 py-2 rounded-full backdrop-blur-sm border ${
-              timeRemaining <= 30
-                ? 'bg-red-500/90 border-red-400 text-white'
-                : 'bg-white/90 border-gray-200 text-navy-900'
-            }`}>
-              <div className="flex items-center gap-2">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-medium">{formatTime(timeRemaining)}</span>
-              </div>
-            </div>
-          </div>
-
           <ConversationWrapper
             conversationUrl={conversationUrl}
             conversationId={conversationId}
@@ -512,7 +553,7 @@ function Demo() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              Schedule a Free Consultation
+              Schedule a Consultation
             </button>
 
             <button
@@ -523,7 +564,7 @@ function Demo() {
             </button>
 
             <p className="mt-6 text-sm text-navy-400">
-              Free consultation • No commitment required
+              No commitment required
             </p>
           </div>
         </div>

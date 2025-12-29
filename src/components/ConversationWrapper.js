@@ -467,8 +467,8 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
         </div>
       )}
 
-      {/* Chat input - with gradient to cover video bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 pt-8 pb-4 px-4 bg-gradient-to-t from-white via-white/95 to-transparent">
+      {/* Chat input */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pb-4 px-4">
         <div className="max-w-xl mx-auto">
           <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 border border-gray-200/50 shadow-sm">
             <input
