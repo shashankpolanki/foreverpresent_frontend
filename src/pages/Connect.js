@@ -22,17 +22,17 @@ function Connect() {
   const readinessOptions = [
     {
       id: 'ready',
-      label: 'Ready to start',
+      label: 'It would mean everything',
       description: 'I want to begin soon'
     },
     {
       id: 'considering',
-      label: 'Seriously considering',
+      label: 'It would bring me comfort',
       description: 'Ready to learn more'
     },
     {
       id: 'exploring',
-      label: 'Just exploring',
+      label: 'I\'m curious to see',
       description: 'Learning about my options'
     },
   ];
@@ -77,7 +77,7 @@ function Connect() {
             <div className="animate-fadeIn">
               <div className="text-center mb-10">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-navy-900 mb-4">
-                  Who would you like to reconnect with?
+                  Who would you like to see again?
                 </h1>
                 <p className="text-lg text-navy-600">
                   Select the loved one you're hoping to see and hear again
@@ -117,7 +117,7 @@ function Connect() {
                 </button>
 
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-navy-900 mb-4">
-                  How ready are you to feel connected to your {selectedRelationship?.label.toLowerCase()} again?
+                  How would you feel to connect with your {selectedRelationship?.label.toLowerCase()} again?
                 </h1>
                 <p className="text-lg text-navy-600">
                   This helps us understand how best to support you

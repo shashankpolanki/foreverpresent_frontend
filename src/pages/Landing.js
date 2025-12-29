@@ -27,12 +27,25 @@ function Landing() {
                 <span className="text-primary-600">Forever</span>
               </h1>
 
-              <p className="text-lg lg:text-xl text-navy-600 leading-relaxed mb-6 max-w-lg">
+              <p className="text-lg lg:text-xl text-navy-600 leading-relaxed mb-8 max-w-lg">
                 We create meaningful AI experiences that <strong className="text-navy-800">let you see, hear, and speak with your passed away loved ones</strong>, preserving their essence for generations to come.
               </p>
 
-              {/* Mobile-only GIF preview - shown before CTA on mobile */}
-              <div className="lg:hidden mb-6">
+              {/* CTA Button - shown before GIF on mobile */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-10 lg:mb-0">
+                <Link
+                  to="/connect"
+                  className="btn-primary inline-flex items-center justify-center gap-3 group"
+                >
+                  Connect With Loved One ❤️
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Mobile-only GIF preview - shown after CTA on mobile */}
+              <div className="lg:hidden mb-8">
                 <div className="relative max-w-sm mx-auto">
                   <div className="absolute -inset-2 bg-gradient-to-br from-primary-100 via-champagne-100 to-primary-50 rounded-2xl blur-xl opacity-60"></div>
                   <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
@@ -75,21 +88,8 @@ function Landing() {
                 </div>
               </div>
 
-              {/* CTA Button - shown after GIF on mobile */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8 lg:mb-0">
-                <Link
-                  to="/connect"
-                  className="btn-primary inline-flex items-center justify-center gap-3 group"
-                >
-                  Connect With Loved One ❤️
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-
               {/* Trust indicators */}
-              <div className="mt-12 pt-8 border-t border-gray-200">
+              <div className="pt-8 border-t border-gray-200">
                 <p className="text-sm text-navy-500 mb-4">Trusted by families across the world</p>
                 <div className="flex items-center gap-8">
                   <div className="text-center">
