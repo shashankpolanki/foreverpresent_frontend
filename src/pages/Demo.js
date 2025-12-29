@@ -65,7 +65,7 @@ const showChatWidget = () => {
 
 // Demo configuration
 const DEMO_USERNAME = 'angelina';
-const DEMO_TITLE = 'Connect with Mom Demo';
+const DEMO_TITLE = 'Connect with Mother Demo';
 const DEMO_DURATION_SECONDS = 180; // 3 minutes
 
 function Demo() {
@@ -284,7 +284,7 @@ function Demo() {
               <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-champagne-400 shadow-xl">
                 <img
                   src="/mom_img.png"
-                  alt="Mom"
+                  alt="Mother"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -384,7 +384,7 @@ function Demo() {
             conversationUrl={conversationUrl}
             conversationId={conversationId}
             creatorUsername={DEMO_USERNAME}
-            creatorName="Mom"
+            creatorName="Mother"
             onLeave={() => endVideoCall(false)}
             isDemo={true}
             maxDurationMinutes={DEMO_DURATION_SECONDS / 60}

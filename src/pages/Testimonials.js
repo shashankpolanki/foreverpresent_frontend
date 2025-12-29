@@ -35,6 +35,7 @@ function Testimonials() {
       name: "Maria Garcia",
       role: "Lost her husband in 2022",
       initials: "MG",
+      image: "/maria_img.png",
       rating: 5,
       quote: "After losing my husband of 40 years, I felt so alone. Now I can hear his voice tell me good morning every day. It's not the same, but it helps fill a little of that void. The ForeverPresent team understood exactly what I needed.",
       highlight: "I can hear his voice tell me good morning every day."
@@ -43,6 +44,7 @@ function Testimonials() {
       name: "David Chen",
       role: "Preserved his grandmother's legacy",
       initials: "DC",
+      image: "/david_img.png",
       rating: 5,
       quote: "My grandmother was the matriarch of our family and had so many stories to tell. Thanks to ForeverPresent, future generations of our family will be able to hear those stories directly from her. It's an invaluable gift.",
       highlight: "Future generations will be able to hear those stories directly from her."
@@ -51,6 +53,7 @@ function Testimonials() {
       name: "Patricia Williams",
       role: "Military family",
       initials: "PW",
+      image: "/patricia_img.png",
       rating: 5,
       quote: "When my son was deployed overseas, the uncertainty was overwhelming. We created a ForeverPresent experience just in case. Thankfully he returned safely, but having that peace of mind was priceless. Now we're keeping it for our grandchildren.",
       highlight: "Having that peace of mind was priceless."
