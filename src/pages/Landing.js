@@ -32,7 +32,7 @@ function Landing() {
               </p>
 
               {/* CTA Button - shown before GIF on mobile */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-10 lg:mb-0">
+              <div className="flex flex-col sm:flex-row gap-4 mb-10 lg:mb-8">
                 <Link
                   to="/connect"
                   className="btn-primary inline-flex items-center justify-center gap-3 group"
@@ -89,7 +89,7 @@ function Landing() {
               </div>
 
               {/* Trust indicators */}
-              <div className="pt-8 border-t border-gray-200">
+              <div className="mt-4 pt-8 border-t border-gray-200 lg:mt-0">
                 <p className="text-sm text-navy-500 mb-4">Trusted by families across the world</p>
                 <div className="flex items-center gap-8">
                   <div className="text-center">

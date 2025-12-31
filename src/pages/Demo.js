@@ -283,7 +283,7 @@ function Demo() {
               {/* Mom image */}
               <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden border-4 border-champagne-400 shadow-xl">
                 <img
-                  src="/mom_img.png"
+                  src="/mother_img.png"
                   alt="Mother"
                   className="w-full h-full object-cover"
                 />
@@ -553,7 +553,7 @@ function Demo() {
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
-              Schedule a Consultation
+              Schedule a 10 Min Call
             </button>
 
             <button

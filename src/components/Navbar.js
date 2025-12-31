@@ -9,8 +9,13 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <span className="text-2xl font-serif font-semibold text-navy-900">
+          <Link to="/" className="flex items-center -ml-1">
+            <img
+              src="/logo_infinity.png"
+              alt="ForeverPresent"
+              className="h-12 md:h-14 w-auto -mr-5"
+            />
+            <span className="text-xl md:text-2xl font-serif font-semibold text-navy-900">
               Forever<span className="text-champagne-500">Present</span>
             </span>
           </Link>

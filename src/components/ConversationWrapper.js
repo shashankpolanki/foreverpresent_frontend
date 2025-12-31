@@ -384,7 +384,7 @@ export const ConversationWrapper = ({ conversationUrl, conversationId, introMess
       </div>
 
       {/* Main video area */}
-      <div className="absolute inset-0 pt-16 pb-16">
+      <div className="absolute inset-0 pt-14">
         <div className="w-full h-full">
           <Conversation
             conversationUrl={conversationUrl}
