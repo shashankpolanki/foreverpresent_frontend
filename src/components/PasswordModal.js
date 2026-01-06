@@ -37,7 +37,7 @@ function PasswordModal({ onAuthenticated, onCancel }) {
     } catch (err) {
       console.error('Authentication error:', err);
       if (err.response?.status === 403) {
-        setError('No credits remaining. Please contact hello@foreverpresent.ai');
+        setError('No credits remaining. Please contact team@foreverpresent.ai');
       } else if (err.response?.status === 401) {
         setError('Invalid password. Please try again.');
       } else {
@@ -109,7 +109,7 @@ function PasswordModal({ onAuthenticated, onCancel }) {
         </form>
 
         <p className="mt-4 text-xs text-navy-400 text-center">
-          Need access? Contact hello@foreverpresent.ai
+          Need access? Contact team@foreverpresent.ai
         </p>
       </div>
     </div>

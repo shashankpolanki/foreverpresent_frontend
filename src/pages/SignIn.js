@@ -131,7 +131,7 @@ function SignIn() {
           <div className="mt-6 text-center">
             <p className="text-navy-500 text-sm">
               Don't have an account?{' '}
-              <a href="mailto:hello@foreverpresent.ai" className="text-primary-600 hover:text-primary-700 font-medium">
+              <a href="mailto:team@foreverpresent.ai" className="text-primary-600 hover:text-primary-700 font-medium">
                 Contact us
               </a>
             </p>

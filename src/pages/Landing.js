@@ -397,7 +397,7 @@ function Landing() {
             <div className="flex gap-8 text-navy-300">
               <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
               <a href="/terms" className="hover:text-white transition-colors">Terms</a>
-              <a href="mailto:hello@foreverpresent.ai" className="hover:text-white transition-colors">Contact</a>
+              <a href="mailto:team@foreverpresent.ai" className="hover:text-white transition-colors">Contact</a>
             </div>
           </div>
           <div className="border-t border-navy-800 mt-8 pt-8 text-center text-navy-500 text-sm">
