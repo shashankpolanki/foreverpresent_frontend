@@ -9,6 +9,7 @@ import Terms from './pages/Terms';
 import Testimonials from './pages/Testimonials';
 import HowItWorks from './pages/HowItWorks';
 import Connect from './pages/Connect';
+import SmsConsent from './pages/SmsConsent';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/sms-consent" element={<SmsConsent />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/connect" element={<Connect />} />
