@@ -1,9 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function BuyVideo() {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    // Facebook Pixel ViewContent event
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent');
+    }
+  }, []);
 
   const handlePlayClick = async () => {
     if (videoRef.current) {

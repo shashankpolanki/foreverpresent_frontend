@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function BuyVideoCall() {
   const stripeLink = "https://buy.stripe.com/8x2bJ2fsi7Ve3Aq1xpenS0a";
+
+  useEffect(() => {
+    // Facebook Pixel ViewContent event
+    if (window.fbq) {
+      window.fbq('track', 'ViewContent');
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">

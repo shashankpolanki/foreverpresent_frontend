@@ -12,6 +12,8 @@ import Connect from './pages/Connect';
 import SmsConsent from './pages/SmsConsent';
 import BuyVideo from './pages/BuyVideo';
 import BuyVideoCall from './pages/BuyVideoCall';
+import ThankYouBuyVideo from './pages/ThankYouBuyVideo';
+import ThankYouBuyVideoCall from './pages/ThankYouBuyVideoCall';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/connect" element={<Connect />} />
           <Route path="/buy-video" element={<BuyVideo />} />
           <Route path="/buy-video-call" element={<BuyVideoCall />} />
+          <Route path="/thank-you-buy-video" element={<ThankYouBuyVideo />} />
+          <Route path="/thank-you-buy-video-call" element={<ThankYouBuyVideoCall />} />
 
           {/* Demo Routes */}
           <Route path="/demo" element={<Demo />} />
