@@ -10,6 +10,8 @@ import Testimonials from './pages/Testimonials';
 import HowItWorks from './pages/HowItWorks';
 import Connect from './pages/Connect';
 import SmsConsent from './pages/SmsConsent';
+import BuyVideo from './pages/BuyVideo';
+import BuyVideoCall from './pages/BuyVideoCall';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/connect" element={<Connect />} />
+          <Route path="/buy-video" element={<BuyVideo />} />
+          <Route path="/buy-video-call" element={<BuyVideoCall />} />
 
           {/* Demo Routes */}
           <Route path="/demo" element={<Demo />} />
