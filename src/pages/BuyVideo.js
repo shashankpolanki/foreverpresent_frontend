@@ -202,29 +202,138 @@ function BuyVideo() {
         </div>
       </section>
 
-      {/* Social Proof / Trust */}
-      <section className="px-6 py-12 bg-champagne-50 border-y border-champagne-100">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-navy-800 font-medium mb-4">
-            "I didn't know I needed this until I saw her face again."
-          </p>
-          <div className="flex items-center justify-center gap-3">
-            <img
-              src="/sarah_img.png"
-              alt="Sarah M."
-              className="w-12 h-12 rounded-full object-cover"
-            />
-            <p className="text-navy-500 text-sm text-left">Sarah M.<br /><span className="text-navy-400">Lost her mother in 2023</span></p>
+      {/* Customer Reviews */}
+      <section className="px-6 py-16 bg-champagne-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-serif font-semibold text-navy-900 mb-2">
+              Trusted by Families Everywhere
+            </h2>
+            <div className="flex items-center justify-center gap-1 mb-2">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} className="w-5 h-5 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
+              <span className="ml-2 text-navy-600 font-medium">5.0 from 2,500+ families</span>
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Soft Upsell */}
-      <section className="px-6 py-10 bg-white">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-navy-600 italic text-sm">
-            Many families later request longer videos, voice messages, or anniversary editions.
-          </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Review 1 */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-navy-600 text-sm mb-4">"I didn't know I needed this until I saw her face again. The video brought me to tears — in the best way."</p>
+              <div className="flex items-center gap-3">
+                <img src="/sarah_img.png" alt="Sarah M." className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-navy-900 font-medium text-sm">Sarah Mitchell</p>
+                  <p className="text-navy-400 text-xs">Lost her mother in 2023</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 2 */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-navy-600 text-sm mb-4">"My kids can now see their grandfather. It's helped them process their grief in such a healthy way. Worth every penny."</p>
+              <div className="flex items-center gap-3">
+                <img src="/james_img.png" alt="James T." className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-navy-900 font-medium text-sm">James Thompson</p>
+                  <p className="text-navy-400 text-xs">Father of 3</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 3 */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-navy-600 text-sm mb-4">"After losing my husband of 40 years, I felt so alone. This video helps fill a little of that void every day."</p>
+              <div className="flex items-center gap-3">
+                <img src="/maria_img.png" alt="Maria G." className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-navy-900 font-medium text-sm">Maria Garcia</p>
+                  <p className="text-navy-400 text-xs">Lost her husband in 2022</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 4 */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-navy-600 text-sm mb-4">"Knowing my family will always have a piece of me brings incredible comfort. The team was compassionate throughout."</p>
+              <div className="flex items-center gap-3">
+                <img src="/robert_img.png" alt="Robert K." className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-navy-900 font-medium text-sm">Robert Kim</p>
+                  <p className="text-navy-400 text-xs">Legacy preservation client</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 5 */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-navy-600 text-sm mb-4">"Future generations of our family will hear my grandmother's stories directly from her. It's an invaluable gift."</p>
+              <div className="flex items-center gap-3">
+                <img src="/david_img.png" alt="David C." className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-navy-900 font-medium text-sm">David Chen</p>
+                  <p className="text-navy-400 text-xs">Preserved grandmother's legacy</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Review 6 */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-champagne-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-navy-600 text-sm mb-4">"When my son was deployed, the uncertainty was overwhelming. Having that peace of mind was priceless."</p>
+              <div className="flex items-center gap-3">
+                <img src="/patricia_img.png" alt="Patricia W." className="w-10 h-10 rounded-full object-cover" />
+                <div>
+                  <p className="text-navy-900 font-medium text-sm">Patricia Williams</p>
+                  <p className="text-navy-400 text-xs">Military family</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
