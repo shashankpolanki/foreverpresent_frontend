@@ -6,6 +6,7 @@ function BuyVideo() {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
+    document.title = 'ForeverPresent.ai - Remembrance Video';
     // Facebook Pixel ViewContent event
     if (window.fbq) {
       window.fbq('track', 'ViewContent');

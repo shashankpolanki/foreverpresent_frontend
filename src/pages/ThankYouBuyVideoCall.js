@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function ThankYouBuyVideoCall() {
   useEffect(() => {
+    document.title = 'ForeverPresent.ai - Thank You';
     // Facebook Pixel Purchase event
     if (window.fbq) {
       window.fbq('track', 'Purchase', { value: 99.00, currency: 'USD' });

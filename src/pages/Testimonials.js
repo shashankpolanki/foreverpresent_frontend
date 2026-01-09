@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 function Testimonials() {
+  useEffect(() => {
+    document.title = 'ForeverPresent.ai - Testimonials';
+  }, []);
   const testimonials = [
     {
       name: "Sarah Mitchell",

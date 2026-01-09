@@ -2,7 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/foreverpresent.ico" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/foreverpresent_logo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/foreverpresent_logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#102a43" />
     <meta
@@ -40,7 +42,7 @@
 
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/foreverpresent_logo.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>ForeverPresent - Keep Their Memory Alive, Forever</title>
+    <title>ForeverPresent.ai - Keep Their Memory Alive</title>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9R7LT1SB3K"></script>
@@ -49,6 +51,75 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-9R7LT1SB3K');
+    </script>
+
+    <!-- Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ForeverPresent",
+      "url": "https://foreverpresent.ai",
+      "logo": "https://foreverpresent.ai/foreverpresent_logo.png",
+      "description": "ForeverPresent creates meaningful AI experiences that let you see, hear, and speak with your loved ones, preserving their essence for generations to come.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "team@foreverpresent.ai",
+        "contactType": "customer service"
+      },
+      "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ForeverPresent",
+      "url": "https://foreverpresent.ai",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://foreverpresent.ai/?s={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "SiteNavigationElement",
+          "position": 1,
+          "name": "Home",
+          "url": "https://foreverpresent.ai/"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 2,
+          "name": "How It Works",
+          "url": "https://foreverpresent.ai/how-it-works"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 3,
+          "name": "Testimonials",
+          "url": "https://foreverpresent.ai/testimonials"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 4,
+          "name": "Demo",
+          "url": "https://foreverpresent.ai/demo"
+        },
+        {
+          "@type": "SiteNavigationElement",
+          "position": 5,
+          "name": "Contact",
+          "url": "https://foreverpresent.ai/connect"
+        }
+      ]
+    }
     </script>
 
     <!-- Meta Pixel Code -->

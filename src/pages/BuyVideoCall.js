@@ -5,6 +5,7 @@ function BuyVideoCall() {
   const stripeLink = "https://buy.stripe.com/8x2bJ2fsi7Ve3Aq1xpenS0a";
 
   useEffect(() => {
+    document.title = 'ForeverPresent.ai - Video Call Experience';
     // Facebook Pixel ViewContent event
     if (window.fbq) {
       window.fbq('track', 'ViewContent');

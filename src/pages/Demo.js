@@ -109,6 +109,7 @@ function Demo() {
 
   // Hide chat widget on demo page (runs repeatedly to catch async-loaded widget)
   useEffect(() => {
+    document.title = 'ForeverPresent.ai - Try the Demo';
     hideChatWidget();
 
     // Keep trying to hide it in case it loads after initial render

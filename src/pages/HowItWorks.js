@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 function HowItWorks() {
+  useEffect(() => {
+    document.title = 'ForeverPresent.ai - How It Works';
+  }, []);
   const steps = [
     {
       number: "01",
