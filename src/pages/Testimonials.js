@@ -5,6 +5,14 @@ import Navbar from '../components/Navbar';
 function Testimonials() {
   useEffect(() => {
     document.title = 'ForeverPresent.ai - Testimonials';
+    // Set canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://foreverpresent.ai/testimonials';
   }, []);
   const testimonials = [
     {

@@ -5,6 +5,14 @@ import Navbar from '../components/Navbar';
 function Connect() {
   useEffect(() => {
     document.title = 'ForeverPresent.ai - Contact Us';
+    // Set canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://foreverpresent.ai/connect';
   }, []);
   const navigate = useNavigate();
   const [step, setStep] = useState(1);

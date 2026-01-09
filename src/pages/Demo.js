@@ -110,6 +110,14 @@ function Demo() {
   // Hide chat widget on demo page (runs repeatedly to catch async-loaded widget)
   useEffect(() => {
     document.title = 'ForeverPresent.ai - Try the Demo';
+    // Set canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://foreverpresent.ai/demo';
     hideChatWidget();
 
     // Keep trying to hide it in case it loads after initial render

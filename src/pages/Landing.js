@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 function Landing() {
+  useEffect(() => {
+    document.title = 'ForeverPresent.ai - Keep Their Memory Alive';
+    // Set canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://foreverpresent.ai/';
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />

@@ -7,6 +7,14 @@ function BuyVideo() {
 
   useEffect(() => {
     document.title = 'ForeverPresent.ai - Remembrance Video';
+    // Set canonical URL
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = 'https://foreverpresent.ai/buy-video';
     // Facebook Pixel ViewContent event
     if (window.fbq) {
       window.fbq('track', 'ViewContent');
