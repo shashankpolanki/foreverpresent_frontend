@@ -61,7 +61,7 @@ function BuyVideo() {
       {/* Limited Time Offer Banner */}
       <div className="bg-champagne-50 border-b border-champagne-200 py-3 px-6">
         <p className="text-center text-sm text-navy-700">
-          <span className="font-medium">Introductory Offer:</span> <span className="line-through text-navy-400">$99</span> <span className="text-primary-600 font-semibold">$19.99</span> for Only Today
+          <span className="font-medium">Introductory Offer:</span> <span className="relative inline-block text-navy-400"><span className="absolute inset-0 flex items-center justify-center"><span className="w-full h-0.5 bg-navy-400 rotate-[-12deg]"></span></span>$99</span> <span className="text-primary-600 font-semibold">$19.99</span> for Only Today
         </p>
       </div>
 
@@ -76,7 +76,7 @@ function BuyVideo() {
 
           {/* Subheadline - Clear about passed away loved one */}
           <p className="text-lg md:text-xl text-navy-700 mb-6 max-w-2xl mx-auto">
-            We create a <strong>video of someone you've lost</strong> — a moment you never got to have, delivered in 24 hours.
+            We create a <strong>video of someone you've lost</strong> — a moment to relive your favorite time, delivered in 24 hours.
           </p>
 
           {/* Micro Reassurances - Above CTA */}
@@ -110,8 +110,8 @@ function BuyVideo() {
             href={stripeLink}
             className="inline-flex items-center justify-center bg-primary-600 hover:bg-primary-700 text-white px-8 md:px-10 py-4 md:py-5 rounded-xl font-semibold text-base md:text-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mb-10"
           >
-            <span className="hidden md:inline">Create Remembrance Video — <span className="line-through opacity-70">$99</span> Only $19.99</span>
-            <span className="md:hidden">Get Video — <span className="line-through opacity-70">$99</span> $19.99</span>
+            <span className="hidden md:inline">Create Remembrance Video — Only $19.99</span>
+            <span className="md:hidden">Get Video — $19.99</span>
           </a>
 
           {/* Video Player - Below CTA */}
@@ -367,8 +367,8 @@ function BuyVideo() {
             href={stripeLink}
             className="inline-flex items-center justify-center bg-primary-600 hover:bg-primary-700 text-white px-8 md:px-12 py-4 md:py-5 rounded-xl font-semibold text-base md:text-lg transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
           >
-            <span className="hidden md:inline">Create Remembrance Video — <span className="line-through opacity-70">$99</span> Only $19.99</span>
-            <span className="md:hidden">Get Video — <span className="line-through opacity-70">$99</span> $19.99</span>
+            <span className="hidden md:inline">Create Remembrance Video — Only $19.99</span>
+            <span className="md:hidden">Get Video — $19.99</span>
           </a>
 
           <p className="text-navy-400 text-sm mt-4">
